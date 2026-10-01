@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ek Important Sawal 😏</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#111,#2b1055);
+  font-family:Arial,sans-serif;
+  color:white;
+  overflow:hidden;
+}
+.card{
+  width:min(92%,520px);
+  min-height:360px;
+  padding:35px 20px;
+  border-radius:25px;
+  background:rgba(255,255,255,.10);
+  backdrop-filter:blur(10px);
+  text-align:center;
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+h1{font-size:27px;margin:25px 0 35px}
+button{
+  border:0;
+  border-radius:14px;
+  padding:14px 24px;
+  margin:8px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
+}
+.yes{background:#39e75f;color:#061b0a}
+.no{background:#ff5555;color:white}
+.obv{background:#ffb52e;color:#241600}
+#funny{
+  font-size:25px;
+  font-weight:bold;
+  margin:25px 0;
+  display:none;
+}
+#question2{display:none}
+#videoBox{display:none}
+video{
+  width:100%;
+  max-height:70vh;
+  border-radius:18px;
+  background:#000;
+}
+#movingArea{
+  position:relative;
+  min-height:80px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <section id="question1">
+    <h1>Ek baat puchu? 👀</h1>
+    <button class="no" onclick="nextQuestion()">Nahi 😐</button>
+    <button class="obv" onclick="nextQuestion()">Mat pucho 😂</button>
+  </section>
+
+  <div id="funny">
+    Ab to puchunga hi 😈😂<br>
+    <small>Permission ki zarurat nahi hai 💀</small>
+  </div>
+
+  <section id="question2">
+    <h1>Kya tum mujhe like karti ho? ❤️</h1>
+
+    <div id="movingArea">
+      <button id="yesBtn" class="yes">Haan ❤️</button>
+    </div>
+
+    <button class="no" onclick="playMeme()">Nahi 😐</button>
+    <button class="obv" onclick="playMeme()">Obviously nahi karti 😂</button>
+  </section>
+
+  <section id="videoBox">
+    <h1>💀 DHOKA MIL GAYA 😂</h1>
+    <video id="memeVideo" controls playsinline>
+      <source src="meme.mp4" type="video/mp4">
+      Tumhara browser video support nahi karta.
+    </video>
+  </section>
+
+</div>
+
+<script>
+function nextQuestion(){
+  document.getElementById("question1").style.display="none";
+  document.getElementById("funny").style.display="block";
+
+  setTimeout(()=>{
+    document.getElementById("funny").style.display="none";
+    document.getElementById("question2").style.display="block";
+  },1600);
+}
+
+const yesBtn = document.getElementById("yesBtn");
+const movingArea = document.getElementById("movingArea");
+
+function moveYes(){
+  const maxX = Math.max(0, movingArea.clientWidth - yesBtn.offsetWidth - 10);
+  const maxY = 45;
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  yesBtn.style.position = "relative";
+  yesBtn.style.left = x + "px";
+  yesBtn.style.top = y + "px";
+}
+
+yesBtn.addEventListener("mouseenter", moveYes);
+yesBtn.addEventListener("touchstart", function(e){
+  e.preventDefault();
+  moveYes();
+}, {passive:false});
+
+yesBtn.addEventListener("click", function(e){
+  e.preventDefault();
+  moveYes();
+});
+
+function playMeme(){
+  document.getElementById("question2").style.display="none";
+  document.getElementById("videoBox").style.display="block";
+
+  const video = document.getElementById("memeVideo");
+  video.currentTime = 0;
+  video.play().catch(()=>{
+    // Some phones/browser settings require the user to press Play.
+  });
+}
+</script>
+
+</body>
+</html>
